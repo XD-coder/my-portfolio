@@ -1,4 +1,10 @@
 @import "tailwindcss";
+
+html, body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
 :root {
   --background: #e8ebed;
   --foreground: #333333;
@@ -53,8 +59,8 @@
   transition: color 0.2s, fill 0.2s;
 }
 .group:hover .navbar-github-logo {
-  color: #e05d38 !important;
-  fill: #e05d38 !important;
+  color: var(--color-primary) !important;
+  fill: var(--color-primary) !important;
 }
 
 .dark {
