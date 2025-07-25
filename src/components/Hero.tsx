@@ -2,8 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-
-
 const Hero = () => {
   return (
     <section
@@ -81,8 +79,6 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Extra: Animated Scroll Down Indicator */}
-      
     </section>
   );
 };
