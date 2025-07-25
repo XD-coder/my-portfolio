@@ -1,35 +1,66 @@
-import About from '@/components/About'
-import Contact from '@/components/Contact'
-import Education from '@/components/Education'
-import Hero from '@/components/Hero'
-import Projects from '@/components/Projects'
-import Skills from '@/components/Skills'
-import React from 'react'
+"use client";
 
-const home = () => {
+import { ContactForm } from "@/components/ContactForm";
+import { ProjectSection } from "@/components/ProjectSection";
+import { portfolioData } from "@/lib/data";
+import { motion } from "framer-motion";
+import react from "react";
+import Hero from "@/components/Hero";
+import { SkillsTabs } from "@/components/Skills";
+
+
+export default function HomePage() {
+  const { about, skills } = portfolioData;
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
   return (
     <div>
-      <section id="hero" className="hero">
-          <Hero />
-      </section>
-      <section id="about" className="about">
-          <About />
-      </section>
-      <section id="skills" className="skills">
-          <Skills />
-      </section>
-      <section id="projects" className="projects">
-          <Projects />
-      </section>
-      <section id="education" className="education">
-          <Education />
-      </section>
-      <section id="contact" className="contact">
-          <Contact />
-      </section>
-     
-    </div>
-  )
-}
+      <motion.section
+        id="hero"
+        className="container mx-auto px-4 py-16 text-center min-h-screen flex flex-col justify-center"
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <Hero />
+      </motion.section>
 
-export default home
+      <div id="projects">
+        <ProjectSection />
+      </div>
+
+      <motion.section
+        id="skills"
+        className="container mx-auto px-4 py-20 text-center"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <SkillsTabs />
+      </motion.section>
+
+      <motion.section
+        id="contact"
+        className="container mx-auto px-4 py-20"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <h2 className="text-4xl font-bold text-center mb-12">Contact Me</h2>
+        <div className="max-w-xl mx-auto">
+          <ContactForm />
+        </div>
+      </motion.section>
+    </div>
+  );
+}

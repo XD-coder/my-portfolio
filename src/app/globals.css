@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
+
 html, body {
   background: var(--color-background);
   color: var(--color-foreground);
+  overscroll-behavior-y: none; /* Prevent bounce effects that can interfere with GSAP */
 }
 
 :root {
@@ -52,6 +54,18 @@ html, body {
   --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  
+}
+
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Lighten GitHub logo on hover in navbar */

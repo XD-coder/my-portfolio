@@ -1,0 +1,56 @@
+/* Layout styles for portfolio sections */
+.section-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix for scroll animation conflicts */
+.scroll-pin-spacer {
+  z-index: 1 !important; /* Ensure proper stacking */
+  width: 100% !important; /* Force full width */
+}
+
+/* Helper to make sections behave as self-contained scroll units */
+.scroll-section-wrapper {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Fix GSAP pin-spacer issues */
+.pin-spacer {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+/* Force all GSAP transforms to use GPU acceleration */
+.gsap-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* For sections that need to be fully self-contained */
+.contained-section {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* For sections that can flow normally */
+.flow-section {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 0;
+}
+
+/* Ensure proper stacking of elements with scroll animations */
+.gsap-marker-scroller-start,
+.gsap-marker-scroller-end,
+.gsap-marker-start,
+.gsap-marker-end {
+  z-index: 1000 !important;
+}
