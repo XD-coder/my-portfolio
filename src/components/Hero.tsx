@@ -81,6 +81,8 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
+      {/* Extra: Animated Scroll Down Indicator */}
+      
     </section>
   );
 };

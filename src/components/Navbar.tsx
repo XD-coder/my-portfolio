@@ -5,6 +5,7 @@ import { Moon, Sun, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -16,14 +17,12 @@ const Navbar = () => {
 
   useEffect(() => {
     // Improved scroll handler with throttling for better performance
-    let lastScrollTop = 0;
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       // Only update state when we cross the threshold to avoid unnecessary re-renders
       if ((scrollTop > 50 && !isScrolled) || (scrollTop <= 50 && isScrolled)) {
         setIsScrolled(scrollTop > 50);
       }
-      lastScrollTop = scrollTop;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -259,7 +258,7 @@ const Navbar = () => {
               {/* Header with Logo */}
               <div className="flex items-center justify-between px-2 pb-4 mb-6 border-b border-border">
                 <div className="flex items-center">
-                  <img src="/Raviraj Rice Industry - logo.png" alt="Raviraj Rice Industry Logo" className="h-8 mr-2" />
+                  
                   <div className="text-sm text-muted-foreground">Premium Rice Manufacturers</div>
                 </div>
                 <button 
