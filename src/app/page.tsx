@@ -2,15 +2,12 @@
 
 import { ContactForm } from "@/components/ContactForm";
 import { ProjectSection } from "@/components/ProjectSection";
-import { portfolioData } from "@/lib/data";
 import { motion } from "framer-motion";
-import react from "react";
 import Hero from "@/components/Hero";
 import { SkillsTabs } from "@/components/Skills";
 
 
 export default function HomePage() {
-  const { about, skills } = portfolioData;
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },

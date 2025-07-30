@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs } from "@/components/ui/tabs";
-import Image from "next/image";
+
 
 export function SkillsTabs() {
   const tabs = [

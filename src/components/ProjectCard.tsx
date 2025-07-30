@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 
 type ProjectProps = {
   title: string;
@@ -19,7 +19,7 @@ const cardVariants = {
     transition: {
       delay: i * 0.15,
       duration: 0.5,
-      ease: "easeOut",
+      ease: easeOut,
     },
   }),
 };

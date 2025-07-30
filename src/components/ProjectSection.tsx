@@ -7,7 +7,7 @@ import Image from "next/image";
 export function ProjectSection() {
   return (
     <div>
-      {portfolioData.projects.map((project, index) => (
+      {portfolioData.projects.map((project,) => (
         <section
           key={project.title}
           className="min-h-screen w-full flex items-center justify-center relative"
