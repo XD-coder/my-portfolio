@@ -55,3 +55,56 @@ export const portfolioData = {
     },
   },
 };
+
+// This is an example of what your data file should contain.
+// Ensure your actual file has a similar structure with multiple objects.
+
+import { FaReact, FaServer, FaBrain, FaTools, FaUserFriends } from "react-icons/fa";
+import { IconType } from "react-icons";
+
+// Define the type for a skill object
+export interface Skill {
+  title: string;
+  iconName: string;
+  description: string;
+  technologies: string[];
+  bgColor: string;
+}
+
+export const skillsData: Skill[] = [
+  {
+    title: "Frontend",
+    iconName: "FaReact",
+    description: "I create responsive, dynamic, and user-friendly interfaces with a focus on performance and aesthetics.",
+    technologies: ["Next.js", "React", "TypeScript", "TailwindCSS", "Framer Motion"],
+    bgColor: "from-blue-600 to-indigo-800",
+  },
+  {
+    title: "Backend",
+    iconName: "FaServer",
+    description: "I develop resilient and scalable server-side logic and APIs to power applications.",
+    technologies: ["FastAPI", "ExpressJS", "Agno", "Database Management"],
+    bgColor: "from-green-600 to-teal-800",
+  },
+  {
+    title: "AI/ML",
+    iconName: "FaBrain",
+    description: "I integrate artificial intelligence to create smarter, more interactive applications.",
+    technologies: ["LangChain", "Ollama", "Generative AI", "Python"],
+    bgColor: "from-red-600 to-rose-800",
+  },
+  {
+    title: "Tools",
+    iconName: "FaTools",
+    description: "I use modern tools and practices to streamline development and deployment workflows.",
+    technologies: ["Docker", "Git", "GitHub", "CI/CD Pipelines"],
+    bgColor: "from-orange-600 to-amber-800",
+  },
+  {
+    title: "Soft Skills",
+    iconName: "FaUserFriends",
+    description: "Beyond technical skills, I bring a range of soft skills that enhance my effectiveness and collaboration.",
+    technologies: ["Problem-Solving", "Teamwork", "Communication", "Adaptability"],
+    bgColor: "from-purple-600 to-violet-800",
+  },
+];

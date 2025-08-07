@@ -1,113 +1,152 @@
 "use client";
 
-import { Tabs } from "@/components/ui/tabs";
+import React from "react";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import { FaReact, FaServer, FaBrain, FaTools, FaUserFriends, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IconType } from "react-icons";
+import "react-horizontal-scrolling-menu/dist/styles.css";
 
+// Map string keys to the actual icon components
+const iconMap: Record<string, IconType> = {
+  FaReact,
+  FaServer,
+  FaBrain,
+  FaTools,
+  FaUserFriends,
+};
 
-export function SkillsTabs() {
-  const tabs = [
-    {
-      title: "Frontend",
-      value: "frontend",
-      content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-white bg-gradient-to-br from-primary to-violet-900">
-          <h3 className="text-2xl md:text-4xl font-bold">
-            Frontend Development
-          </h3>
-          <p className="text-base md:text-lg mt-4">
-            I create responsive, dynamic, and user-friendly interfaces with a
-            focus on performance and aesthetics.
-          </p>
-          <ul className="mt-4 list-disc list-inside">
-            <li>Next.js & React: Building server-side rendered and static web apps.</li>
-            <li>TypeScript: For robust, type-safe code.</li>
-            <li>TailwindCSS: For rapid and utility-first styling.</li>
-            <li>Framer Motion: Crafting fluid and complex animations.</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      title: "Backend",
-      value: "backend",
-      content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-white bg-gradient-to-br from-primary to-violet-900">
-          <h3 className="text-2xl md:text-4xl font-bold">
-            Backend & Databases
-          </h3>
-          <p className="text-base md:text-lg mt-4">
-            I develop resilient and scalable server-side logic and APIs to
-            power applications.
-          </p>
-          <ul className="mt-4 list-disc list-inside">
-            <li>FastAPI & ExpressJS: Building efficient and powerful APIs.</li>
-            <li>Agno: Leveraging modern backend frameworks for performance.</li>
-            <li>Database management and integration for seamless data flow.</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      title: "AI/ML",
-      value: "ai-ml",
-      content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-white bg-gradient-to-br from-primary to-violet-900">
-          <h3 className="text-2xl md:text-4xl font-bold">
-            AI & Machine Learning
-          </h3>
-          <p className="text-base md:text-lg mt-4">
-            I integrate artificial intelligence to create smarter, more
-            interactive applications.
-          </p>
-          <ul className="mt-4 list-disc list-inside">
-            <li>LangChain: Developing applications powered by language models.</li>
-            <li>Ollama: Running and managing large language models locally.</li>
-            <li>Generative AI: Experience with text-to-speech and text-to-image models.</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      title: "Tools",
-      value: "tools",
-      content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-white bg-gradient-to-br from-primary to-violet-900">
-          <h3 className="text-2xl md:text-4xl font-bold">Tools</h3>
-          <p className="text-base md:text-lg mt-4">
-            I use modern tools and practices to streamline development and
-            deployment workflows.
-          </p>
-          <ul className="mt-4 list-disc list-inside">
-            <li>Docker: Containerizing applications for consistency and scalability.</li>
-            <li>Git & GitHub: For version control and collaborative development.</li>
-            <li>Ensuring smooth CI/CD pipelines for efficient project delivery.</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      title: "Soft Skills",
-      value: "soft-skills",
-      content: (
-        <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-white bg-gradient-to-br from-primary to-violet-900">
-          <h3 className="text-2xl md:text-4xl font-bold">Soft Skills</h3>
-          <p className="text-base md:text-lg mt-4">
-            Beyond technical skills, I bring a range of soft skills that enhance my effectiveness and collaboration.
-          </p>
-          <ul className="mt-4 list-disc list-inside">
-            <li>Problem-Solving: Analyzing complex issues and devising effective solutions.</li>
-            <li>Teamwork: Collaborating effectively with teams to achieve common goals.</li>
-            <li>Communication: Clearly articulating ideas and concepts to both technical and non-technical audiences.</li>
-            <li>Adaptability: Quickly learning and adapting to new technologies and environments.</li>
-          </ul>
-        </div>
-      ),
-    },
-  ];
+// Define the type for a skill object
+interface Skill {
+  title: string;
+  iconName: string;
+  description: string;
+  technologies: string[];
+  bgColor: string;
+}
 
+// Example data structure
+const skillsData: Skill[] = [
+  {
+    title: "Frontend",
+    iconName: "FaReact",
+    description: "I create responsive, dynamic, and user-friendly interfaces with a focus on performance and aesthetics.",
+    technologies: ["Next.js & React", "TypeScript", "TailwindCSS", "Framer Motion"],
+    bgColor: "from-blue-600 to-indigo-800",
+  },
+  {
+    title: "Backend",
+    iconName: "FaServer",
+    description: "I develop resilient and scalable server-side logic and APIs to power applications.",
+    technologies: ["FastAPI & ExpressJS", "Agno", "Database management and integration"],
+    bgColor: "from-green-600 to-teal-800",
+  },
+  {
+    title: "AI/ML",
+    iconName: "FaBrain",
+    description: "I integrate artificial intelligence to create smarter, more interactive applications.",
+    technologies: ["LangChain", "Ollama", "Generative AI"],
+    bgColor: "from-red-600 to-rose-800",
+  },
+  {
+    title: "Tools",
+    iconName: "FaTools",
+    description: "I use modern tools and practices to streamline development and deployment workflows.",
+    technologies: ["Docker", "Git & GitHub", "CI/CD pipelines"],
+    bgColor: "from-orange-600 to-amber-800",
+  },
+  {
+    title: "Soft Skills",
+    iconName: "FaUserFriends",
+    description: "Beyond technical skills, I bring a range of soft skills that enhance my effectiveness and collaboration.",
+    technologies: ["Problem-Solving", "Teamwork", "Communication", "Adaptability"],
+    bgColor: "from-purple-600 to-violet-800",
+  },
+];
+
+// Reusable Arrow component
+const Arrow = ({ children, disabled, onClick }: { children: React.ReactNode; disabled: boolean; onClick: () => void }) => {
   return (
-    <div className="h-[20rem] md:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start my-40">
-      <h2 className="text-4xl font-bold text-center mb-12 w-full">My Expertise</h2>
-      <Tabs tabs={tabs} />
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`p-2 m-2 rounded-full bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed`}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Left and Right Arrow components for navigation
+const LeftArrow = () => {
+  const { isFirstItemVisible, scrollPrev } = React.useContext(VisibilityContext);
+  return (
+    <Arrow disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
+      <FaChevronLeft />
+    </Arrow>
+  );
+};
+
+const RightArrow = () => {
+  const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
+  return (
+    <Arrow disabled={isLastItemVisible} onClick={() => scrollNext()}>
+      <FaChevronRight />
+    </Arrow>
+  );
+};
+
+// The card component for each skill
+const SkillCard = ({ skill }: { skill: Skill }) => {
+  const IconComponent = iconMap[skill.iconName];
+  return (
+    <div
+      className={`flex-shrink-0 w-screen flex items-center justify-center p-8 md:p-24`}
+      style={{
+        width: '100vw'
+      }}
+    >
+      <div
+        className={`bg-gradient-to-br ${skill.bgColor} text-white rounded-3xl p-10 max-w-lg w-full shadow-2xl transform transition-transform duration-300 hover:scale-[1.02]`}
+      >
+        <div className="flex items-center mb-6">
+          {IconComponent && (
+            <span className="text-4xl md:text-5xl mr-4">
+              <IconComponent size={36} />
+            </span>
+          )}
+          <h3 className="text-3xl md:text-4xl font-bold">
+            {skill.title}
+          </h3>
+        </div>
+        <p className="text-base md:text-lg mb-6">
+          {skill.description}
+        </p>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {skill.technologies.map((tech, i) => (
+            <li key={i} className="flex items-center">
+              <span className="w-2 h-2 bg-white rounded-full mr-3 flex-shrink-0"></span>
+              <span className="text-sm">{tech}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
+  );
+};
+
+export function SkillsSection() {
+  return (
+    <section className="relative w-full overflow-hidden">
+      <ScrollMenu
+        LeftArrow={LeftArrow}
+        RightArrow={RightArrow}
+        // Tailwind classes can be used for styling the container
+        wrapperClassName="w-full h-screen flex items-center"
+      >
+        {skillsData.map((skill, index) => (
+          <SkillCard skill={skill} key={index} />
+        ))}
+      </ScrollMenu>
+    </section>
   );
 }
