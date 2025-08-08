@@ -7,6 +7,11 @@ html, body {
   overscroll-behavior-y: none; /* Prevent bounce effects that can interfere with GSAP */
 }
 
+/* Ensure the skills section has enough height to prevent skipping */
+#skills {
+  position: relative;
+}
+
 :root {
   --background: #e8ebed;
   --foreground: #333333;
@@ -78,7 +83,7 @@ html, body {
 }
 
 .dark {
-  --background: #1c2433;
+  --background: #161c28;
   --foreground: #e5e5e5;
   --card: #2a3040;
   --card-foreground: #e5e5e5;
@@ -175,4 +180,14 @@ html, body {
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+}
+
+/* Hide scrollbars but keep scrolling functionality */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }

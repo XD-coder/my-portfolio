@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { Typewriter } from 'react-simple-typewriter'
 // --- TextRotator Component ---
 interface TextRotatorProps {
   texts: string[];
@@ -130,12 +130,18 @@ const Hero: React.FC = () => {
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-center leading-tight">
               I am a{' '}
-              <TextRotator
-                texts={textLoopWords}
-                interval={2500}
-                fadeDuration={300}
-                className="font-semibold text-primary"
-              />
+              <span className='font-semibold text-primary'><Typewriter
+                words={textLoopWords}
+                loop={5}
+                cursor
+                cursorStyle="_"
+                typeSpeed={100}
+                deleteSpeed={100}
+                delaySpeed={1000}
+                
+              /></span>
+              
+            
             </h1>
             <p className="text-center leading-tight text-lg md:text-xl lg:text-2xl">
               Building scalable, modern web apps with Next.js, React, TypeScript, and a passion for {' '}

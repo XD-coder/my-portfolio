@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { FaReact, FaServer, FaBrain, FaTools, FaUserFriends, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { IconType } from "react-icons";
-import "react-horizontal-scrolling-menu/dist/styles.css";
+import { FaReact, FaServer, FaBrain, FaTools, FaUserFriends } from "react-icons/fa";
+import { skillsData } from "@/lib/data";
+import ScrollStack from "./lightswind/scroll-stack";
+import { ReactNode } from "react";
 
-// Map string keys to the actual icon components
-const iconMap: Record<string, IconType> = {
+// Map iconName to the actual icon component
+const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   FaReact,
   FaServer,
   FaBrain,
@@ -15,138 +14,81 @@ const iconMap: Record<string, IconType> = {
   FaUserFriends,
 };
 
-// Define the type for a skill object
-interface Skill {
-  title: string;
-  iconName: string;
-  description: string;
-  technologies: string[];
-  bgColor: string;
-}
-
-// Example data structure
-const skillsData: Skill[] = [
-  {
-    title: "Frontend",
-    iconName: "FaReact",
-    description: "I create responsive, dynamic, and user-friendly interfaces with a focus on performance and aesthetics.",
-    technologies: ["Next.js & React", "TypeScript", "TailwindCSS", "Framer Motion"],
-    bgColor: "from-blue-600 to-indigo-800",
-  },
-  {
-    title: "Backend",
-    iconName: "FaServer",
-    description: "I develop resilient and scalable server-side logic and APIs to power applications.",
-    technologies: ["FastAPI & ExpressJS", "Agno", "Database management and integration"],
-    bgColor: "from-green-600 to-teal-800",
-  },
-  {
-    title: "AI/ML",
-    iconName: "FaBrain",
-    description: "I integrate artificial intelligence to create smarter, more interactive applications.",
-    technologies: ["LangChain", "Ollama", "Generative AI"],
-    bgColor: "from-red-600 to-rose-800",
-  },
-  {
-    title: "Tools",
-    iconName: "FaTools",
-    description: "I use modern tools and practices to streamline development and deployment workflows.",
-    technologies: ["Docker", "Git & GitHub", "CI/CD pipelines"],
-    bgColor: "from-orange-600 to-amber-800",
-  },
-  {
-    title: "Soft Skills",
-    iconName: "FaUserFriends",
-    description: "Beyond technical skills, I bring a range of soft skills that enhance my effectiveness and collaboration.",
-    technologies: ["Problem-Solving", "Teamwork", "Communication", "Adaptability"],
-    bgColor: "from-purple-600 to-violet-800",
-  },
-];
-
-// Reusable Arrow component
-const Arrow = ({ children, disabled, onClick }: { children: React.ReactNode; disabled: boolean; onClick: () => void }) => {
-  return (
-    <button
-      disabled={disabled}
-      onClick={onClick}
-      className={`p-2 m-2 rounded-full bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed`}
-    >
-      {children}
-    </button>
-  );
-};
-
-// Left and Right Arrow components for navigation
-const LeftArrow = () => {
-  const { isFirstItemVisible, scrollPrev } = React.useContext(VisibilityContext);
-  return (
-    <Arrow disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
-      <FaChevronLeft />
-    </Arrow>
-  );
-};
-
-const RightArrow = () => {
-  const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
-  return (
-    <Arrow disabled={isLastItemVisible} onClick={() => scrollNext()}>
-      <FaChevronRight />
-    </Arrow>
-  );
-};
-
-// The card component for each skill
-const SkillCard = ({ skill }: { skill: Skill }) => {
-  const IconComponent = iconMap[skill.iconName];
-  return (
-    <div
-      className={`flex-shrink-0 w-screen flex items-center justify-center p-8 md:p-24`}
-      style={{
-        width: '100vw'
-      }}
-    >
-      <div
-        className={`bg-gradient-to-br ${skill.bgColor} text-white rounded-3xl p-10 max-w-lg w-full shadow-2xl transform transition-transform duration-300 hover:scale-[1.02]`}
-      >
-        <div className="flex items-center mb-6">
-          {IconComponent && (
-            <span className="text-4xl md:text-5xl mr-4">
-              <IconComponent size={36} />
-            </span>
-          )}
-          <h3 className="text-3xl md:text-4xl font-bold">
-            {skill.title}
-          </h3>
-        </div>
-        <p className="text-base md:text-lg mb-6">
-          {skill.description}
-        </p>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {skill.technologies.map((tech, i) => (
-            <li key={i} className="flex items-center">
-              <span className="w-2 h-2 bg-white rounded-full mr-3 flex-shrink-0"></span>
-              <span className="text-sm">{tech}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
 export function SkillsSection() {
+  // Transform skillsData into cards for ScrollStack
+  const skillCards = skillsData.map((skill, index) => {
+    const IconComponent = iconMap[skill.iconName];
+    
+    return {
+      title: skill.title,
+      subtitle: skill.description,
+      content: (
+        <div className="max-w-lg text-white">
+          <div className="flex items-center mb-6">
+            {IconComponent && (
+              <span className="text-4xl md:text-5xl mr-4 text-white">
+                <IconComponent size={48} />
+              </span>
+            )}
+            <h3 className="text-3xl md:text-4xl font-bold leading-tight">
+              {skill.title}
+            </h3>
+          </div>
+          <p className="text-lg md:text-xl mb-8 text-white/90 leading-relaxed">
+            {skill.description}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {skill.technologies.map((tech, i) => (
+              <div key={i} className="flex items-center group">
+                <div className="w-2 h-2 bg-white rounded-full mr-3 flex-shrink-0 group-hover:scale-125 transition-transform"></div>
+                <span className="text-sm md:text-base font-medium text-white/95 group-hover:text-white transition-colors">
+                  {tech}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) as ReactNode,
+      backgroundImage: getSkillBackground(skill.title),
+      badge: `${skill.technologies.length} Technologies`,
+    };
+  });
+
   return (
-    <section className="relative w-full overflow-hidden">
-      <ScrollMenu
-        LeftArrow={LeftArrow}
-        RightArrow={RightArrow}
-        // Tailwind classes can be used for styling the container
-        wrapperClassName="w-full h-screen flex items-center"
-      >
-        {skillsData.map((skill, index) => (
-          <SkillCard skill={skill} key={index} />
-        ))}
-      </ScrollMenu>
+    <section id="skills" className="w-full">
+      <div className="w-full px-4 py-4">
+        <div className="text-center mb-8 max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            My <span className="text-primary">Skills</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Explore my technical expertise across different domains. Scroll through each skill category to discover the technologies I work with.
+          </p>
+        </div>
+        
+        <ScrollStack
+          cards={skillCards}
+          backgroundColor="bg-background"
+          cardHeight="70vh"
+          animationDuration="0.6s"
+          sectionHeightMultiplier={5}
+          intersectionThreshold={0.1}
+          className="skills-scroll-stack w-full"
+        />
+      </div>
     </section>
   );
+}
+
+// Helper function to get background images for different skill categories
+function getSkillBackground(skillTitle: string): string {
+  const backgrounds: Record<string, string> = {
+    "Frontend": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=800&fit=crop&crop=center",
+    "Backend": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=800&fit=crop&crop=center",
+    "AI & ML": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop&crop=center",
+    "Tools": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=1200&h=800&fit=crop&crop=center",
+    "Soft Skills": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop&crop=center",
+  };
+  
+  return backgrounds[skillTitle] || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=800&fit=crop&crop=center";
 }

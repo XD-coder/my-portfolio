@@ -19,7 +19,7 @@ export default function HomePage() {
   };
 
   return (
-    <div>
+    <div className="relative">
       <motion.section
         id="hero"
         className="container mx-auto px-4 py-16 text-center min-h-screen flex flex-col justify-center"
@@ -30,20 +30,22 @@ export default function HomePage() {
         <Hero />
       </motion.section>
 
+      {/* <motion.section
+        id="skills"
+        className="relative min-h-screen"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.1 }}
+      > */}
+        <SkillsSection />
+      {/* </motion.section> */}
+
       <div id="projects">
         <ProjectSection />
       </div>
 
-      <motion.section
-        id="skills"
-        className="container mx-auto px-4 py-20 text-center"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <SkillsSection />
-      </motion.section>
+      
 
       <motion.section
         id="contact"
