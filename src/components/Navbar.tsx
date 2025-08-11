@@ -108,7 +108,7 @@ const Navbar = () => {
           : "w-full mt-0 rounded-none px-6 py-3")}>
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3 flex-shrink-0">
+          <div className="flex w-1/3 items-center space-x-3 flex-shrink-0">
             <Link 
               href="#home" 
               className="flex items-center space-x-3 group"
@@ -124,7 +124,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className={cn(
-            "hidden md:flex items-center space-x-6 transition-opacity duration-300 ml-8 mr-4",
+            "hidden w-1/3 md:flex items-center space-x-6 transition-opacity duration-300 ml-8 mr-4",
             isScrolled ? "opacity-0 md:opacity-100" : "opacity-100")}>
             {navigation.map((item) => (
               <a 
@@ -141,7 +141,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center space-x-3">
+          <div className="flex w-1/3 items-center space-x-3">
             {/* Contact options - Desktop */}
             <div className="hidden md:flex items-center gap-2">
               {/* Phone */}
